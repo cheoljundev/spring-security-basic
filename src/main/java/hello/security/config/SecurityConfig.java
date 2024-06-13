@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .permitAll() // 로그인 페이지는 누구나 접근 가능
         );
 
-        http.csrf(csrf -> csrf.disable());
+//        http.csrf(csrf -> csrf.disable()); // CSRF 보안 비활성화, 개발 중에는 비활성화
 
         http.sessionManagement(session -> session
                 .maximumSessions(1) // 최대 세션 수
