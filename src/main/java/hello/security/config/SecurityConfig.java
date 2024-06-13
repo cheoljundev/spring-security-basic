@@ -27,12 +27,21 @@ public class SecurityConfig {
         );
 
         http.formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .permitAll()
+                .loginPage("/login") //  로그인 페이지
+                .loginProcessingUrl("/login") // 로그인 처리 페이지
+                .permitAll() // 로그인 페이지는 누구나 접근 가능
         );
 
         http.csrf(csrf -> csrf.disable());
+
+        http.sessionManagement(session -> session
+                .maximumSessions(1) // 최대 세션 수
+                .maxSessionsPreventsLogin(true) // 동시 로그인 차단
+        );
+
+        http.sessionManagement(session -> session
+                .sessionFixation().newSession() // 세션 고정 보호
+        );
 
         return http.build();
     }
