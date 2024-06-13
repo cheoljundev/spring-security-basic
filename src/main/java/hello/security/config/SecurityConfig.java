@@ -2,6 +2,7 @@ package hello.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,11 +27,13 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
-        http.formLogin(form -> form
+        http.formLogin(form -> form // 폼 로그인 방식
                 .loginPage("/login") //  로그인 페이지
                 .loginProcessingUrl("/login") // 로그인 처리 페이지
                 .permitAll() // 로그인 페이지는 누구나 접근 가능
         );
+
+        // http.httpBasic(Customizer.withDefaults()); // HTTP BASIC 방식
 
 //        http.csrf(csrf -> csrf.disable()); // CSRF 보안 비활성화, 개발 중에는 비활성화
 
