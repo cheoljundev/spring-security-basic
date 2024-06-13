@@ -19,6 +19,14 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
+        http.formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .permitAll()
+        );
+
+        http.csrf(csrf -> csrf.disable());
+
         return http.build();
     }
 }
