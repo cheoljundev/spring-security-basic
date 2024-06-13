@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-  hello, world
+<th:block sec:authorize="isAuthenticated()"><!--   인증 (Authentication) : isAuthenticated : 인증이 되었는지 확인해서 인증되었으면 블럭내용이 보임// authorize : 권한을 체크할때 사용하는 속성-->
+    <h3><span sec:authentication="principal.roles"></span></h3>
+    <h3>님 환영합니다.</h3>
+</th:block>
+
+<!-- 인증되지 않은(로그인하지 않은) 사용자에게 보임 -->
+<button sec:authorize="isAnonymous()" type="button" onclick="location.href='/admin/loginView'">로그인</button>
+<!-- 인증된(로그인한) 사용자에게 보임 -->
+<button sec:authorize="isAuthenticated()" type="button" onclick="location.href='/admin/logout'">로그아웃</button>
+
+<!-- ROLE_ADMIN 권한을 가지고 있다면 보임 -->
+<div sec:authorize="hasRole('ADMIN')">ROLE_ADMIN 권한이 있습니다.</div>
+<!-- ROLE_SUB_ADMIN 권한을 가지고 있다면 보임 -->
+<div sec:authorize="hasRole('SUB_ADMIN')">ROLE_SUB_ADMIN 권한이 있습니다.</div>
+<!-- ROLE_USER 권한을 가지고 있다면 보임 -->
+<div sec:authorize="hasRole('USER')">ROLE_USER 권한이 있습니다.</div>
+<!-- ROLE_ADMIN 혹은 ROLE_SUB_ADMIN 권한을 가지고 있다면 보임 -->
+<div sec:authorize="hasAnyRole('ADMIN, SUB_ADMIN')">ROLE_ADMIN 혹은 ROLE_SUB_ADMIN 권한이 있습니다.</div>
+
+<br/>
+<!--인증시 사용된 객체에 대한 정보-->
+<b>Authenticated DTO:</b>
+<div sec:authorize="isAuthenticated()" sec:authentication="principal"></div>
+
+<br/>
+<!--인증시 사용된 객체의 Username (ID)-->
+<b>Authenticated username:</b>
+<div sec:authorize="isAuthenticated()" sec:authentication="name"></div>
+
+<br/>
+<!--객체의 권한-->
+<b>Authenticated admin role:</b>
+<div sec:authorize="isAuthenticated()" sec:authentication="principal.authorities"></div>
 </body>
 </html>

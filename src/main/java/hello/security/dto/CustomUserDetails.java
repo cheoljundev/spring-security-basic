@@ -1,5 +1,6 @@
 package hello.security.dto;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,12 +8,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
-@RequiredArgsConstructor
+@Getter
 public class CustomUserDetails implements UserDetails {
 
     private final JoinDto user;
+
+    private final List<GrantedAuthority> roles = new ArrayList<>();
+
+    public CustomUserDetails(JoinDto user){
+        this.user = user;
+        roles.add(new SimpleGrantedAuthority(user.getUserRole()));
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
