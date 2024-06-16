@@ -35,16 +35,16 @@ public class SecurityConfig {
 
         // http.httpBasic(Customizer.withDefaults()); // HTTP BASIC 방식
 
-//        http.csrf(csrf -> csrf.disable()); // CSRF 보안 비활성화, 개발 중에는 비활성화
+        http.csrf(csrf -> csrf.disable()); // CSRF 보안 비활성화, 개발 중에는 비활성화
 
-        http.sessionManagement(session -> session
-                .maximumSessions(1) // 최대 세션 수
-                .maxSessionsPreventsLogin(true) // 동시 로그인 차단
-        );
+//        http.sessionManagement(session -> session
+//                .maximumSessions(1) // 최대 세션 수
+//                .maxSessionsPreventsLogin(true) // 동시 로그인 차단
+//        );
 
-        http.sessionManagement(session -> session
-                .sessionFixation().newSession() // 세션 고정 보호
-        );
+//        http.sessionManagement(session -> session
+//                .sessionFixation().newSession() // 세션 고정 보호
+//        );
 
         return http.build();
     }

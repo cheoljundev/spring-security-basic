@@ -20,9 +20,9 @@ public class JoinController {
     @PostMapping("/join")
     public String join(JoinDto joinDto) {
         System.out.println("joinDto = " + joinDto);
-        
-        joinService.join(joinDto); 
-        
+
+        joinService.join(joinDto);
+
         return "redirect:/login";
     }
 }
